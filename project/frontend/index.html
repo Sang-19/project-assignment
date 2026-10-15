@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In · Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body class="auth-body">
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <main class="auth-card">
+    <div class="brand">
+      <span class="brand-logo">◆</span>
+      <span class="brand-name">Platform</span>
+    </div>
+
+    <h1 class="auth-title">Welcome back</h1>
+    <p class="auth-subtitle">Sign in to your account or create a new one.</p>
+
+    <!-- Tab switcher -->
+    <div class="tabs">
+      <button class="tab active" data-tab="login">Login</button>
+      <button class="tab" data-tab="signup">Sign Up</button>
+    </div>
+
+    <!-- Login form -->
+    <form id="login-form" class="form" autocomplete="on">
+      <label class="field">
+        <span class="field-label">Username</span>
+        <input type="text" name="username" id="login-username" placeholder="your username" required />
+      </label>
+      <label class="field">
+        <span class="field-label">Password</span>
+        <input type="password" name="password" id="login-password" placeholder="••••••••" required />
+      </label>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+
+    <!-- Sign-up form -->
+    <form id="signup-form" class="form hidden" autocomplete="on">
+      <label class="field">
+        <span class="field-label">Username</span>
+        <input type="text" name="username" id="signup-username" placeholder="choose a username" required />
+      </label>
+      <label class="field">
+        <span class="field-label">Email</span>
+        <input type="email" name="email" id="signup-email" placeholder="you@example.com" required />
+      </label>
+      <label class="field">
+        <span class="field-label">Password</span>
+        <input type="password" name="password" id="signup-password" placeholder="create a password" minlength="6" required />
+      </label>
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+
+    <div class="divider"><span>or continue with</span></div>
+
+    <!-- Google OAuth -->
+    <a class="btn btn-google" href="http://localhost:5000/auth/google">
+      <svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true">
+        <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.4 29.3 35 24 35c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 5.1 29.3 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.5-.4-3.5z"/>
+        <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 5.1 29.3 3 24 3 16.3 3 9.7 7.3 6.3 14.7z"/>
+        <path fill="#4CAF50" d="M24 45c5.2 0 10-2 13.5-5.2l-6.2-5.2C29.2 36.3 26.7 37 24 37c-5.3 0-9.7-3.4-11.3-8.1l-6.5 5C9.5 40.5 16.2 45 24 45z"/>
+        <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.1-4 5.5l6.2 5.2C41.9 34.7 45 30 45 24c0-1.4-.1-2.5-.4-3.5z"/>
+      </svg>
+      Sign in with Google
+    </a>
+
+    <p id="message" class="message" role="status"></p>
+  </main>
+
+  <script src="./js/auth.js"></script>
+</body>
+</html>

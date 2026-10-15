@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard · Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body class="dash-body">
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-logo">◆</span>
+      <span class="brand-name">Platform</span>
+    </div>
+    <button id="logout-btn" class="btn btn-ghost">Log out</button>
+  </header>
+
+  <main class="dash-container">
+    <section class="welcome-card">
+      <h1 id="welcome-text">Welcome</h1>
+      <p class="muted">Your dashboard is ready. Manage notifications below.</p>
+    </section>
+
+    <div class="grid">
+      <section class="card notification-card">
+        <h2 class="card-title">🔔 Notifications</h2>
+        <p class="muted">To get notified, enter your email here</p>
+        <form id="notify-form" class="inline-form">
+          <input
+            type="email"
+            id="notify-email"
+            placeholder="you@example.com"
+            required
+          />
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </section>
+    </div>
+
+    <p id="message" class="message" role="status"></p>
+  </main>
+
+  <script src="./js/dashboard.js"></script>
+</body>
+</html>
