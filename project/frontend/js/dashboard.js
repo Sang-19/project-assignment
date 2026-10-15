@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api/auth';
+const API_BASE = 'https://project-assignment-wyi7.onrender.com/api/auth';
 const messageEl = document.getElementById('message');
 
 function showMessage(text, kind = 'success') {

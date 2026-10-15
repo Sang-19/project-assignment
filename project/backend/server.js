@@ -7,15 +7,20 @@ const dotenv = require('dotenv');
 const expressSession = require('express-session');
 const mongoose = require('mongoose');
 
+dotenv.config();
+
 const authRoutes = require('./routes/authRoutes');
 const googleAuthRoutes = require('./routes/googleAuth');
 
-dotenv.config();
 const passport = require('./config/passport');
 
 const app = express();
 const port = process.env.PORT || 5000;
-const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+const frontendUrl =
+  process.env.FRONTEND_URL ||
+  (process.env.NODE_ENV === 'production'
+    ? 'https://project-assignment-frontend-tau.vercel.app'
+    : 'http://localhost:5173');
 const mongoUri = process.env.MONGO_URI && process.env.MONGO_URI.trim();
 
 mongoose.set('bufferCommands', false);
@@ -92,5 +97,5 @@ app.use((error, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`backend listening on http://localhost:${port}`);
+  console.log(`backend listening on port ${port}`);
 });

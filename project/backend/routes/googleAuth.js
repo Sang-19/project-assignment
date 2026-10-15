@@ -3,6 +3,12 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
+const frontendUrl =
+  process.env.FRONTEND_URL ||
+  (process.env.NODE_ENV === 'production'
+    ? 'https://project-assignment-frontend-tau.vercel.app'
+    : 'http://localhost:5173');
+
 router.get(
   '/google',
   passport.authenticate('google', {
@@ -13,7 +19,7 @@ router.get(
 router.get(
   '/google/callback',
   passport.authenticate('google', {
-    failureRedirect: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/index.html?error=google_auth_failed`,
+    failureRedirect: `${frontendUrl}/index.html?error=google_auth_failed`,
     session: false,
   }),
   (req, res) => {
@@ -32,7 +38,7 @@ router.get(
     });
 
     res.redirect(
-      `${process.env.FRONTEND_URL || 'http://localhost:3000'}/dashboard.html?${params.toString()}`
+      `${frontendUrl}/dashboard.html?${params.toString()}`
     );
   }
 );
@@ -40,7 +46,7 @@ router.get(
 router.get('/logout', (req, res, next) => {
   req.logout((err) => {
     if (err) return next(err);
-    res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:3000'}/index.html`);
+    res.redirect(`${frontendUrl}/index.html`);
   });
 });
 

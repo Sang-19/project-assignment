@@ -4,7 +4,9 @@ const User = require('../models/User');
 
 const callbackURL =
   process.env.GOOGLE_CALLBACK_URL ||
-  'http://localhost:5000/auth/google/callback';
+  (process.env.NODE_ENV === 'production'
+    ? 'https://project-assignment-wyi7.onrender.com/auth/google/callback'
+    : 'http://localhost:5000/auth/google/callback');
 
 passport.use(
   new GoogleStrategy(
