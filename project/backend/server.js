@@ -13,6 +13,7 @@ const authRoutes = require('./routes/authRoutes');
 const googleAuthRoutes = require('./routes/googleAuth');
 
 const passport = require('./config/passport');
+const sendEmail = require('./utils/sendEmail');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -24,6 +25,10 @@ const frontendUrl =
 const mongoUri = process.env.MONGO_URI && process.env.MONGO_URI.trim();
 
 mongoose.set('bufferCommands', false);
+
+if (!sendEmail.isConfigured()) {
+  console.error('Email service is not configured. Set EMAIL_USER and EMAIL_PASS.');
+}
 
 app.use(cors({ origin: frontendUrl }));
 app.use(express.json());

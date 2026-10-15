@@ -35,6 +35,9 @@ const username = localStorage.getItem('username') || 'user';
 document.getElementById('welcome-text').textContent = `Welcome @${username}`;
 
 const notifyEmail = document.getElementById('notify-email');
+const notifyForm = document.getElementById('notify-form');
+const notifySubmit = notifyForm.querySelector('button[type="submit"]');
+let notificationPending = false;
 notifyEmail.value = localStorage.getItem('email') || '';
 
 async function sendNotification(email) {
@@ -42,6 +45,13 @@ async function sendNotification(email) {
     showMessage('Please enter an email address.', 'error');
     return;
   }
+
+  if (notificationPending) return;
+
+  notificationPending = true;
+  notifySubmit.disabled = true;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
 
   try {
     const res = await fetch(`${API_BASE}/send-notification`, {
@@ -51,8 +61,18 @@ async function sendNotification(email) {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ email }),
+      signal: controller.signal,
     });
-    const data = await res.json();
+    const responseText = await res.text();
+    let data = {};
+
+    if (responseText) {
+      try {
+        data = JSON.parse(responseText);
+      } catch {
+        data = { error: responseText };
+      }
+    }
 
     if (res.status === 401) {
       localStorage.clear();
@@ -67,11 +87,18 @@ async function sendNotification(email) {
 
     showMessage(`✅ ${data.message}`, 'success');
   } catch {
-    showMessage('Network error while sending notification.', 'error');
+    showMessage(
+      'The email request timed out or the backend could not be reached.',
+      'error'
+    );
+  } finally {
+    clearTimeout(timeout);
+    notificationPending = false;
+    notifySubmit.disabled = false;
   }
 }
 
-document.getElementById('notify-form').addEventListener('submit', (e) => {
+notifyForm.addEventListener('submit', (e) => {
   e.preventDefault();
   sendNotification(notifyEmail.value.trim());
 });

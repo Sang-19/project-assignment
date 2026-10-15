@@ -112,8 +112,15 @@ router.post('/send-notification', protect, async (req, res) => {
       recipient: email,
     });
   } catch (err) {
-    console.error('Notification email failed:', err.message);
-    res.status(500).json({ error: err.message });
+    console.error('Notification email failed:', {
+      message: err.message,
+      code: err.code,
+      responseCode: err.responseCode,
+      command: err.command,
+    });
+    res.status(502).json({
+      error: 'Notification email could not be sent. Check the backend email configuration.',
+    });
   }
 });
 
