@@ -6,7 +6,10 @@ const emailPass = process.env.EMAIL_PASS && process.env.EMAIL_PASS.trim();
 const transporter =
   emailUser && emailPass
     ? nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        requireTLS: true,
         auth: {
           user: emailUser,
           // Gmail requires an App Password here, not the normal account password.
