@@ -58,7 +58,7 @@ loginForm.addEventListener('submit', async (e) => {
 
     showMessage('Login successful! Redirecting...', 'success');
     window.location.href = './dashboard.html';
-  } catch (err) {
+  } catch {
     showMessage(
       'Cannot reach the backend. Make sure backend/server.js is running on port 5000.'
     );
@@ -90,7 +90,7 @@ signupForm.addEventListener('submit', async (e) => {
     document.getElementById('login-username').value = payload.username;
     signupForm.reset();
     document.querySelector('.tab[data-tab="login"]').click();
-  } catch (err) {
+  } catch {
     showMessage(
       'Cannot reach the backend. Make sure backend/server.js is running on port 5000.'
     );

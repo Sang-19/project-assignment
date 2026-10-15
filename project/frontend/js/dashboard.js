@@ -66,7 +66,7 @@ async function sendNotification(email) {
     }
 
     showMessage(`✅ ${data.message}`, 'success');
-  } catch (err) {
+  } catch {
     showMessage('Network error while sending notification.', 'error');
   }
 }

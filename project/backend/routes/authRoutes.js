@@ -22,7 +22,7 @@ router.post('/signup', async (req, res) => {
         .json({ error: 'Username, email and password are required.' });
     }
 
-    let existingUser = await User.findOne({ $or: [{ email }, { username }] });
+    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
       return res
         .status(400)
@@ -38,7 +38,6 @@ router.post('/signup', async (req, res) => {
     await sendEmail({
       email: newUser.email,
       subject: 'Welcome to Our Platform - Registration Successful',
-      type: 'registration',
       message: `Hello @${username}, your account has been created successfully! Welcome to our platform.`,
     });
 
