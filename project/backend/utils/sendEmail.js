@@ -1,6 +1,10 @@
 const nodemailer = require('nodemailer');
 
 const sendEmail = async (options) => {
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    throw new Error('EMAIL_USER and EMAIL_PASS must be configured.');
+  }
+
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -17,8 +21,18 @@ const sendEmail = async (options) => {
     text: options.message,
   };
 
-  await transporter.sendMail(mailOptions);
-  console.log(`Email sent successfully to ${options.email}`);
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log(`Email sent successfully to ${options.email}`);
+  } catch (error) {
+    console.error('Email delivery failed:', {
+      message: error.message,
+      code: error.code,
+      responseCode: error.responseCode,
+      command: error.command,
+    });
+    throw error;
+  }
 };
 
 module.exports = sendEmail;

@@ -112,6 +112,7 @@ router.post('/send-notification', protect, async (req, res) => {
       recipient: email,
     });
   } catch (err) {
+    console.error('Notification email failed:', err.message);
     res.status(500).json({ error: err.message });
   }
 });
